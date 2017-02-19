@@ -1,3 +1,3 @@
 [submodule "tiodb"]
 	path = tiodb
-	url = https://github.com/tiodb/tiodb
+	url = https://github.com/bitforgebr/tiodb
