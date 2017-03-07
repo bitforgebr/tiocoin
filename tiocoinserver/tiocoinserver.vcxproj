@@ -150,12 +150,14 @@
   <ItemGroup>
     <ClCompile Include="args.cpp" />
     <ClCompile Include="chain.pb.cc" />
+    <ClCompile Include="challenges.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="tiocoinserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="args.h" />
     <ClInclude Include="chain.pb.h" />
+    <ClInclude Include="challenges.h" />
     <ClInclude Include="guid.h" />
     <ClInclude Include="log.h" />
   </ItemGroup>

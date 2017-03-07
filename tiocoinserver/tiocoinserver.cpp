@@ -4,6 +4,7 @@
 #include "ss.h"
 #include "guid.h"
 #include "chain.pb.h"
+#include "challenges.h"
 #include "..\tiodb\client\cpp\tioclient.hpp"
 #include <google\protobuf\text_format.h>
 #include <iostream>
@@ -16,6 +17,15 @@
 
 
 using namespace std;
+
+
+int GetNextId(const std::string& lastChain)
+{
+	int ret = 0;
+	for (char c : lastChain)
+		ret += c;
+	return ret;
+}
 
 
 void Usage()
@@ -135,7 +145,44 @@ int _tmain(int argc, char* argv[])
 			}
 			else if (args.find("--mine") != args.end())
 			{
-				///@todo work to close chain
+				tio::containers::list<string> transactionsMine;
+				transactionsMine.open(&conn, "transactions");
+
+				if (transactionsMine.size())
+				{
+					string lastChain = transactionsMine[transactionsMine.size() - 1];
+					pb_chain pbChain;
+					google::protobuf::TextFormat::ParseFromString(lastChain, &pbChain);
+					int transactionId = pbChain.id();
+					string question = GetChallenge(transactionId);
+
+					while (true)
+					{
+						cout << question;
+						string answer;
+						cin >> answer;
+						if (VerifyAnswer(transactionId, answer))
+						{
+							pb_challenge* pbChallenge = pbChain.mutable_challenge();
+							pbChallenge->set_question(question);
+							pbChallenge->set_answer(answer);
+							pbChain.set_state("closed");
+
+							string pbChainS;
+							google::protobuf::TextFormat::PrintToString(pbChain, &pbChainS);
+							transactionsMine[transactionsMine.size() - 1] = pbChainS;
+
+							int nextId = GetNextId(pbChainS);
+							pbChain.set_id(nextId);
+							pbChain.set_state("open");
+							pbChain.clear_transaction();
+							pbChain.clear_challenge();
+							google::protobuf::TextFormat::PrintToString(pbChain, &pbChainS);
+							transactionsMine.push_back(pbChainS);
+							break;
+						}
+					}
+				}
 			}
 			else
 			{

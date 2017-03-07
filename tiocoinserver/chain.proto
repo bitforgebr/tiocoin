@@ -6,9 +6,17 @@ message pb_transaction
 }
 
 
+message pb_challenge
+{
+	optional string question = 1;
+	optional string answer = 2;
+}
+
+
 message pb_chain
 {
     optional int32 id = 1;
     optional string state = 2;
     repeated pb_transaction transaction = 3;
+	optional pb_challenge challenge = 4;
 }

@@ -21,6 +21,9 @@ namespace {
 const ::google::protobuf::Descriptor* pb_transaction_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   pb_transaction_reflection_ = NULL;
+const ::google::protobuf::Descriptor* pb_challenge_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  pb_challenge_reflection_ = NULL;
 const ::google::protobuf::Descriptor* pb_chain_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   pb_chain_reflection_ = NULL;
@@ -49,11 +52,28 @@ void protobuf_AssignDesc_chain_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(pb_transaction));
-  pb_chain_descriptor_ = file->message_type(1);
-  static const int pb_chain_offsets_[3] = {
+  pb_challenge_descriptor_ = file->message_type(1);
+  static const int pb_challenge_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_challenge, question_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_challenge, answer_),
+  };
+  pb_challenge_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      pb_challenge_descriptor_,
+      pb_challenge::default_instance_,
+      pb_challenge_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_challenge, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_challenge, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(pb_challenge));
+  pb_chain_descriptor_ = file->message_type(2);
+  static const int pb_chain_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_chain, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_chain, state_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_chain, transaction_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(pb_chain, challenge_),
   };
   pb_chain_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -81,6 +101,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     pb_transaction_descriptor_, &pb_transaction::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    pb_challenge_descriptor_, &pb_challenge::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     pb_chain_descriptor_, &pb_chain::default_instance());
 }
 
@@ -89,6 +111,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_chain_2eproto() {
   delete pb_transaction::default_instance_;
   delete pb_transaction_reflection_;
+  delete pb_challenge::default_instance_;
+  delete pb_challenge_reflection_;
   delete pb_chain::default_instance_;
   delete pb_chain_reflection_;
 }
@@ -101,13 +125,18 @@ void protobuf_AddDesc_chain_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\013chain.proto\"\034\n\016pb_transaction\022\n\n\002id\030\001 "
-    "\001(\t\"K\n\010pb_chain\022\n\n\002id\030\001 \001(\005\022\r\n\005state\030\002 \001"
-    "(\t\022$\n\013transaction\030\003 \003(\0132\017.pb_transaction", 120);
+    "\001(\t\"0\n\014pb_challenge\022\020\n\010question\030\001 \001(\t\022\016\n"
+    "\006answer\030\002 \001(\t\"m\n\010pb_chain\022\n\n\002id\030\001 \001(\005\022\r\n"
+    "\005state\030\002 \001(\t\022$\n\013transaction\030\003 \003(\0132\017.pb_t"
+    "ransaction\022 \n\tchallenge\030\004 \001(\0132\r.pb_chall"
+    "enge", 204);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "chain.proto", &protobuf_RegisterTypes);
   pb_transaction::default_instance_ = new pb_transaction();
+  pb_challenge::default_instance_ = new pb_challenge();
   pb_chain::default_instance_ = new pb_chain();
   pb_transaction::default_instance_->InitAsDefaultInstance();
+  pb_challenge::default_instance_->InitAsDefaultInstance();
   pb_chain::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_chain_2eproto);
 }
@@ -365,9 +394,314 @@ void pb_transaction::Swap(pb_transaction* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int pb_challenge::kQuestionFieldNumber;
+const int pb_challenge::kAnswerFieldNumber;
+#endif  // !_MSC_VER
+
+pb_challenge::pb_challenge()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:pb_challenge)
+}
+
+void pb_challenge::InitAsDefaultInstance() {
+}
+
+pb_challenge::pb_challenge(const pb_challenge& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:pb_challenge)
+}
+
+void pb_challenge::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  question_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  answer_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+pb_challenge::~pb_challenge() {
+  // @@protoc_insertion_point(destructor:pb_challenge)
+  SharedDtor();
+}
+
+void pb_challenge::SharedDtor() {
+  if (question_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete question_;
+  }
+  if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete answer_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void pb_challenge::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* pb_challenge::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return pb_challenge_descriptor_;
+}
+
+const pb_challenge& pb_challenge::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_chain_2eproto();
+  return *default_instance_;
+}
+
+pb_challenge* pb_challenge::default_instance_ = NULL;
+
+pb_challenge* pb_challenge::New() const {
+  return new pb_challenge;
+}
+
+void pb_challenge::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_question()) {
+      if (question_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        question_->clear();
+      }
+    }
+    if (has_answer()) {
+      if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        answer_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool pb_challenge::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:pb_challenge)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string question = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_question()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->question().data(), this->question().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "question");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_answer;
+        break;
+      }
+
+      // optional string answer = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_answer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_answer()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->answer().data(), this->answer().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "answer");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:pb_challenge)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:pb_challenge)
+  return false;
+#undef DO_
+}
+
+void pb_challenge::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:pb_challenge)
+  // optional string question = 1;
+  if (has_question()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->question().data(), this->question().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "question");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->question(), output);
+  }
+
+  // optional string answer = 2;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->answer(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:pb_challenge)
+}
+
+::google::protobuf::uint8* pb_challenge::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:pb_challenge)
+  // optional string question = 1;
+  if (has_question()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->question().data(), this->question().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "question");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->question(), target);
+  }
+
+  // optional string answer = 2;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->answer(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:pb_challenge)
+  return target;
+}
+
+int pb_challenge::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string question = 1;
+    if (has_question()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->question());
+    }
+
+    // optional string answer = 2;
+    if (has_answer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->answer());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void pb_challenge::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const pb_challenge* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const pb_challenge*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void pb_challenge::MergeFrom(const pb_challenge& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_question()) {
+      set_question(from.question());
+    }
+    if (from.has_answer()) {
+      set_answer(from.answer());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void pb_challenge::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void pb_challenge::CopyFrom(const pb_challenge& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool pb_challenge::IsInitialized() const {
+
+  return true;
+}
+
+void pb_challenge::Swap(pb_challenge* other) {
+  if (other != this) {
+    std::swap(question_, other->question_);
+    std::swap(answer_, other->answer_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata pb_challenge::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = pb_challenge_descriptor_;
+  metadata.reflection = pb_challenge_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int pb_chain::kIdFieldNumber;
 const int pb_chain::kStateFieldNumber;
 const int pb_chain::kTransactionFieldNumber;
+const int pb_chain::kChallengeFieldNumber;
 #endif  // !_MSC_VER
 
 pb_chain::pb_chain()
@@ -377,6 +711,7 @@ pb_chain::pb_chain()
 }
 
 void pb_chain::InitAsDefaultInstance() {
+  challenge_ = const_cast< ::pb_challenge*>(&::pb_challenge::default_instance());
 }
 
 pb_chain::pb_chain(const pb_chain& from)
@@ -391,6 +726,7 @@ void pb_chain::SharedCtor() {
   _cached_size_ = 0;
   id_ = 0;
   state_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  challenge_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -404,6 +740,7 @@ void pb_chain::SharedDtor() {
     delete state_;
   }
   if (this != default_instance_) {
+    delete challenge_;
   }
 }
 
@@ -429,12 +766,15 @@ pb_chain* pb_chain::New() const {
 }
 
 void pb_chain::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
+  if (_has_bits_[0 / 32] & 11) {
     id_ = 0;
     if (has_state()) {
       if (state_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         state_->clear();
       }
+    }
+    if (has_challenge()) {
+      if (challenge_ != NULL) challenge_->::pb_challenge::Clear();
     }
   }
   transaction_.Clear();
@@ -493,6 +833,19 @@ bool pb_chain::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_transaction;
+        if (input->ExpectTag(34)) goto parse_challenge;
+        break;
+      }
+
+      // optional .pb_challenge challenge = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_challenge:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_challenge()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -543,6 +896,12 @@ void pb_chain::SerializeWithCachedSizes(
       3, this->transaction(i), output);
   }
 
+  // optional .pb_challenge challenge = 4;
+  if (has_challenge()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->challenge(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -576,6 +935,13 @@ void pb_chain::SerializeWithCachedSizes(
         3, this->transaction(i), target);
   }
 
+  // optional .pb_challenge challenge = 4;
+  if (has_challenge()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->challenge(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -600,6 +966,13 @@ int pb_chain::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->state());
+    }
+
+    // optional .pb_challenge challenge = 4;
+    if (has_challenge()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->challenge());
     }
 
   }
@@ -644,6 +1017,9 @@ void pb_chain::MergeFrom(const pb_chain& from) {
     if (from.has_state()) {
       set_state(from.state());
     }
+    if (from.has_challenge()) {
+      mutable_challenge()->::pb_challenge::MergeFrom(from.challenge());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -670,6 +1046,7 @@ void pb_chain::Swap(pb_chain* other) {
     std::swap(id_, other->id_);
     std::swap(state_, other->state_);
     transaction_.Swap(&other->transaction_);
+    std::swap(challenge_, other->challenge_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

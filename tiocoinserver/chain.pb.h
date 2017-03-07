@@ -32,6 +32,7 @@ void protobuf_AssignDesc_chain_2eproto();
 void protobuf_ShutdownFile_chain_2eproto();
 
 class pb_transaction;
+class pb_challenge;
 class pb_chain;
 
 // ===================================================================
@@ -120,6 +121,105 @@ class pb_transaction : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class pb_challenge : public ::google::protobuf::Message {
+ public:
+  pb_challenge();
+  virtual ~pb_challenge();
+
+  pb_challenge(const pb_challenge& from);
+
+  inline pb_challenge& operator=(const pb_challenge& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const pb_challenge& default_instance();
+
+  void Swap(pb_challenge* other);
+
+  // implements Message ----------------------------------------------
+
+  pb_challenge* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const pb_challenge& from);
+  void MergeFrom(const pb_challenge& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string question = 1;
+  inline bool has_question() const;
+  inline void clear_question();
+  static const int kQuestionFieldNumber = 1;
+  inline const ::std::string& question() const;
+  inline void set_question(const ::std::string& value);
+  inline void set_question(const char* value);
+  inline void set_question(const char* value, size_t size);
+  inline ::std::string* mutable_question();
+  inline ::std::string* release_question();
+  inline void set_allocated_question(::std::string* question);
+
+  // optional string answer = 2;
+  inline bool has_answer() const;
+  inline void clear_answer();
+  static const int kAnswerFieldNumber = 2;
+  inline const ::std::string& answer() const;
+  inline void set_answer(const ::std::string& value);
+  inline void set_answer(const char* value);
+  inline void set_answer(const char* value, size_t size);
+  inline ::std::string* mutable_answer();
+  inline ::std::string* release_answer();
+  inline void set_allocated_answer(::std::string* answer);
+
+  // @@protoc_insertion_point(class_scope:pb_challenge)
+ private:
+  inline void set_has_question();
+  inline void clear_has_question();
+  inline void set_has_answer();
+  inline void clear_has_answer();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* question_;
+  ::std::string* answer_;
+  friend void  protobuf_AddDesc_chain_2eproto();
+  friend void protobuf_AssignDesc_chain_2eproto();
+  friend void protobuf_ShutdownFile_chain_2eproto();
+
+  void InitAsDefaultInstance();
+  static pb_challenge* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class pb_chain : public ::google::protobuf::Message {
  public:
   pb_chain();
@@ -204,12 +304,23 @@ class pb_chain : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::pb_transaction >*
       mutable_transaction();
 
+  // optional .pb_challenge challenge = 4;
+  inline bool has_challenge() const;
+  inline void clear_challenge();
+  static const int kChallengeFieldNumber = 4;
+  inline const ::pb_challenge& challenge() const;
+  inline ::pb_challenge* mutable_challenge();
+  inline ::pb_challenge* release_challenge();
+  inline void set_allocated_challenge(::pb_challenge* challenge);
+
   // @@protoc_insertion_point(class_scope:pb_chain)
  private:
   inline void set_has_id();
   inline void clear_has_id();
   inline void set_has_state();
   inline void clear_has_state();
+  inline void set_has_challenge();
+  inline void clear_has_challenge();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -217,6 +328,7 @@ class pb_chain : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::std::string* state_;
   ::google::protobuf::RepeatedPtrField< ::pb_transaction > transaction_;
+  ::pb_challenge* challenge_;
   ::google::protobuf::int32 id_;
   friend void  protobuf_AddDesc_chain_2eproto();
   friend void protobuf_AssignDesc_chain_2eproto();
@@ -306,6 +418,162 @@ inline void pb_transaction::set_allocated_id(::std::string* id) {
     id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:pb_transaction.id)
+}
+
+// -------------------------------------------------------------------
+
+// pb_challenge
+
+// optional string question = 1;
+inline bool pb_challenge::has_question() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void pb_challenge::set_has_question() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void pb_challenge::clear_has_question() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void pb_challenge::clear_question() {
+  if (question_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    question_->clear();
+  }
+  clear_has_question();
+}
+inline const ::std::string& pb_challenge::question() const {
+  // @@protoc_insertion_point(field_get:pb_challenge.question)
+  return *question_;
+}
+inline void pb_challenge::set_question(const ::std::string& value) {
+  set_has_question();
+  if (question_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    question_ = new ::std::string;
+  }
+  question_->assign(value);
+  // @@protoc_insertion_point(field_set:pb_challenge.question)
+}
+inline void pb_challenge::set_question(const char* value) {
+  set_has_question();
+  if (question_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    question_ = new ::std::string;
+  }
+  question_->assign(value);
+  // @@protoc_insertion_point(field_set_char:pb_challenge.question)
+}
+inline void pb_challenge::set_question(const char* value, size_t size) {
+  set_has_question();
+  if (question_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    question_ = new ::std::string;
+  }
+  question_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:pb_challenge.question)
+}
+inline ::std::string* pb_challenge::mutable_question() {
+  set_has_question();
+  if (question_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    question_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:pb_challenge.question)
+  return question_;
+}
+inline ::std::string* pb_challenge::release_question() {
+  clear_has_question();
+  if (question_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = question_;
+    question_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void pb_challenge::set_allocated_question(::std::string* question) {
+  if (question_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete question_;
+  }
+  if (question) {
+    set_has_question();
+    question_ = question;
+  } else {
+    clear_has_question();
+    question_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:pb_challenge.question)
+}
+
+// optional string answer = 2;
+inline bool pb_challenge::has_answer() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void pb_challenge::set_has_answer() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void pb_challenge::clear_has_answer() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void pb_challenge::clear_answer() {
+  if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    answer_->clear();
+  }
+  clear_has_answer();
+}
+inline const ::std::string& pb_challenge::answer() const {
+  // @@protoc_insertion_point(field_get:pb_challenge.answer)
+  return *answer_;
+}
+inline void pb_challenge::set_answer(const ::std::string& value) {
+  set_has_answer();
+  if (answer_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    answer_ = new ::std::string;
+  }
+  answer_->assign(value);
+  // @@protoc_insertion_point(field_set:pb_challenge.answer)
+}
+inline void pb_challenge::set_answer(const char* value) {
+  set_has_answer();
+  if (answer_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    answer_ = new ::std::string;
+  }
+  answer_->assign(value);
+  // @@protoc_insertion_point(field_set_char:pb_challenge.answer)
+}
+inline void pb_challenge::set_answer(const char* value, size_t size) {
+  set_has_answer();
+  if (answer_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    answer_ = new ::std::string;
+  }
+  answer_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:pb_challenge.answer)
+}
+inline ::std::string* pb_challenge::mutable_answer() {
+  set_has_answer();
+  if (answer_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    answer_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:pb_challenge.answer)
+  return answer_;
+}
+inline ::std::string* pb_challenge::release_answer() {
+  clear_has_answer();
+  if (answer_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = answer_;
+    answer_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void pb_challenge::set_allocated_answer(::std::string* answer) {
+  if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete answer_;
+  }
+  if (answer) {
+    set_has_answer();
+    answer_ = answer;
+  } else {
+    clear_has_answer();
+    answer_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:pb_challenge.answer)
 }
 
 // -------------------------------------------------------------------
@@ -440,6 +708,47 @@ inline ::google::protobuf::RepeatedPtrField< ::pb_transaction >*
 pb_chain::mutable_transaction() {
   // @@protoc_insertion_point(field_mutable_list:pb_chain.transaction)
   return &transaction_;
+}
+
+// optional .pb_challenge challenge = 4;
+inline bool pb_chain::has_challenge() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void pb_chain::set_has_challenge() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void pb_chain::clear_has_challenge() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void pb_chain::clear_challenge() {
+  if (challenge_ != NULL) challenge_->::pb_challenge::Clear();
+  clear_has_challenge();
+}
+inline const ::pb_challenge& pb_chain::challenge() const {
+  // @@protoc_insertion_point(field_get:pb_chain.challenge)
+  return challenge_ != NULL ? *challenge_ : *default_instance_->challenge_;
+}
+inline ::pb_challenge* pb_chain::mutable_challenge() {
+  set_has_challenge();
+  if (challenge_ == NULL) challenge_ = new ::pb_challenge;
+  // @@protoc_insertion_point(field_mutable:pb_chain.challenge)
+  return challenge_;
+}
+inline ::pb_challenge* pb_chain::release_challenge() {
+  clear_has_challenge();
+  ::pb_challenge* temp = challenge_;
+  challenge_ = NULL;
+  return temp;
+}
+inline void pb_chain::set_allocated_challenge(::pb_challenge* challenge) {
+  delete challenge_;
+  challenge_ = challenge;
+  if (challenge) {
+    set_has_challenge();
+  } else {
+    clear_has_challenge();
+  }
+  // @@protoc_insertion_point(field_set_allocated:pb_chain.challenge)
 }
 
 
