@@ -63,7 +63,7 @@ int _tmain(int argc, char* argv[])
 			{
 				tio::containers::list<string> transactionsBuilder;
 				transactionsBuilder.create(&conn, "transactions", "volatile_list");
-				transactionsBuilder.push_back("{00000000-0000-0000-0000-0000000000000");
+				transactionsBuilder.push_back("{ \"chain\": { \"id\": \"0\", \"state\": \"open\", \"transactions\": [] } }");
 			}
 			else if (args.find("--add") != args.end())
 			{
