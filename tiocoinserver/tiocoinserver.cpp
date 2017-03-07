@@ -36,7 +36,8 @@ void Usage()
 		<< "  --add\n"
 		<< "  --monitor\n"
 		<< "  --mine\n"
-		<< "  --list\n";
+		<< "  --list\n"
+		<< "  --check\n";
 
 	cout << "options:\n"
 		<< "  --server\n"
@@ -199,6 +200,29 @@ int _tmain(int argc, char* argv[])
 				transactionsReader.open(&conn, "transactions");
 				for( size_t transactionIdx = 0; transactionIdx < transactionsReader.size(); ++transactionIdx )
 					cout << "Transaction " << transactionsReader.at(transactionIdx) << endl;
+			}
+			else if (args.find("--check") != args.end())
+			{
+				tio::containers::list<string> transactionsCheck;
+				transactionsCheck.open(&conn, "transactions");
+				for (size_t transactionIdx = 0; transactionIdx < transactionsCheck.size(); ++transactionIdx)
+				{
+					string lastChain = transactionsCheck[transactionIdx];
+					pb_chain pbChain;
+					google::protobuf::TextFormat::ParseFromString(lastChain, &pbChain);
+
+					if (pbChain.state() == "closed")
+					{
+						int id = pbChain.id();
+						string answer = pbChain.challenge().answer();
+
+						if (VerifyAnswer(id, answer) == false)
+						{
+							cout << "Error in chain #" << id << " (wrong answer!)" << endl;
+							break;
+						}
+					}
+				}
 			}
 			else Usage();
 
