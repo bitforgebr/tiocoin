@@ -63,17 +63,25 @@ int _tmain(int argc, char* argv[])
 			{
 				tio::containers::list<string> transactionsBuilder;
 				transactionsBuilder.create(&conn, "transactions", "volatile_list");
+				transactionsBuilder.clear();
 				transactionsBuilder.push_back("{ \"chain\": { \"id\": \"0\", \"state\": \"open\", \"transactions\": [] } }");
 			}
 			else if (args.find("--add") != args.end())
 			{
 				tio::containers::list<string> transactionsAdd;
-				transactionsAdd.create(&conn, "transactions", "volatile_list");
-				string newTransaction = NewGuid();
-				if( newTransaction.size())
-					transactionsAdd.push_back(newTransaction);
-				else
-					cout << "Error creating transaction\n";
+				transactionsAdd.open(&conn, "transactions");
+
+				if (transactionsAdd.size())
+				{
+					string lastChain = transactionsAdd[transactionsAdd.size() - 1];
+					string newTransaction = NewGuid();
+					///@todo parse Json
+					///@todo add transaction inside json
+					if (newTransaction.size())
+						transactionsAdd[transactionsAdd.size() - 1] = lastChain + ", " + newTransaction;
+					else
+						cout << "Error creating transaction\n";
+				}
 			}
 			else if (args.find("--monitor") != args.end())
 			{
@@ -94,6 +102,7 @@ int _tmain(int argc, char* argv[])
 						break;
 
 					case TIO_COMMAND_PUSH_BACK:
+						///@todo validate new transaction (or chain)
 						cout << "New transaction " << value << " inserted\n";
 						break;
 
@@ -107,6 +116,10 @@ int _tmain(int argc, char* argv[])
 					conn.WaitForNextEventAndDispatch(0);
 					Sleep(1000);
 				}
+			}
+			else if (args.find("--mine") != args.end())
+			{
+				///@todo work to close chain
 			}
 			else
 			{
