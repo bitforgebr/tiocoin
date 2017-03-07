@@ -3,13 +3,16 @@
 #include "log.h"
 #include "ss.h"
 #include "guid.h"
+#include "chain.pb.h"
 #include "..\tiodb\client\cpp\tioclient.hpp"
+#include <google\protobuf\text_format.h>
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
 
 
 #pragma comment(lib, "tioclient.lib")
+#pragma comment(lib, "libprotobuf.lib")
 
 
 using namespace std;
@@ -64,7 +67,13 @@ int _tmain(int argc, char* argv[])
 				tio::containers::list<string> transactionsBuilder;
 				transactionsBuilder.create(&conn, "transactions", "volatile_list");
 				transactionsBuilder.clear();
-				transactionsBuilder.push_back("{ \"chain\": { \"id\": \"0\", \"state\": \"open\", \"transactions\": [] } }");
+
+				pb_chain pbChain;
+				pbChain.set_id(0);
+				pbChain.set_state("open");
+				string pbChainS;
+				google::protobuf::TextFormat::PrintToString(pbChain, &pbChainS);
+				transactionsBuilder.push_back(pbChainS);
 			}
 			else if (args.find("--add") != args.end())
 			{
@@ -74,13 +83,20 @@ int _tmain(int argc, char* argv[])
 				if (transactionsAdd.size())
 				{
 					string lastChain = transactionsAdd[transactionsAdd.size() - 1];
+					pb_chain pbChain;
+					google::protobuf::TextFormat::ParseFromString(lastChain, &pbChain);
 					string newTransaction = NewGuid();
-					///@todo parse Json
-					///@todo add transaction inside json
+
 					if (newTransaction.size())
-						transactionsAdd[transactionsAdd.size() - 1] = lastChain + ", " + newTransaction;
-					else
-						cout << "Error creating transaction\n";
+					{
+						pb_transaction* pbTransaction = pbChain.add_transaction();
+						pbTransaction->set_id(newTransaction);
+
+						string pbChainS;
+						google::protobuf::TextFormat::PrintToString(pbChain, &pbChainS);
+						transactionsAdd[transactionsAdd.size() - 1] = pbChainS;
+					}
+					else cout << "Error creating transaction\n";
 				}
 			}
 			else if (args.find("--monitor") != args.end())
