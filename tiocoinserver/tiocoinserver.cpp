@@ -30,8 +30,17 @@ int GetNextId(const std::string& lastChain)
 
 void Usage()
 {
-	cout << "tiocoinserver v. " << string(__DATE__) << string(__TIME__) << endl;
-	cout << "Usage: tiocoinserver --server <required server> --port <required port> [--debug]\n";
+	cout << "\ntiocoinserver v. " << string(__DATE__) << " " << string(__TIME__) << endl;
+	cout << "commands:\n"
+		<< "  --build\n"
+		<< "  --add\n"
+		<< "  --monitor\n"
+		<< "  --mine\n"
+		<< "  --list\n";
+
+	cout << "options:\n"
+		<< "  --server\n"
+		<< "  --port\n\n";
 }
 
 
@@ -184,13 +193,14 @@ int _tmain(int argc, char* argv[])
 					}
 				}
 			}
-			else
+			else if (args.find("--list") != args.end())
 			{
 				tio::containers::list<string> transactionsReader;
 				transactionsReader.open(&conn, "transactions");
 				for( size_t transactionIdx = 0; transactionIdx < transactionsReader.size(); ++transactionIdx )
 					cout << "Transaction " << transactionsReader.at(transactionIdx) << endl;
 			}
+			else Usage();
 
 			break; // just testing and developing...
 		}
